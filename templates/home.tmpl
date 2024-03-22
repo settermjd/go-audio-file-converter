@@ -14,25 +14,31 @@
         <p class="mt-2 text-slate-400">Upload an audio file and convert it to a different format.</p>
     </header>
     <main class="mb-3 mt-4 lg:mt-6 md:shadow-md">
-        <form method="post"
+        <form method="post" enctype="multipart/form-data"
             class="grid grid-cols-1 border-t border-b md:border border-slate-200 md:rounded-md p-6 py-8 gap-4 bg-white">
+            {{ if eq .Error nil }}
             <div id="success-confirmation"
-                class="hidden border-2 border-emerald-300 font-normal pr-3 pl-5 py-4 rounded-md bg-emerald-100 text-emerald-600 align-bottom flex flew-rows-1 align-baseline sm:mb-4">
+                class="border-2 border-emerald-300 font-normal pr-3 pl-5 py-4 rounded-md bg-emerald-100 text-emerald-600 align-bottom flex flew-rows-1 align-baseline sm:mb-4">
                 <img src="/static/img/icons/icon-thumbs-up.svg" class="w-6 mr-3 shrink">
-                <div class="grow leading-6 h-full">The uploaded file was converted
-                    from MP3 to FLAC. <a href=""
-                        class="hover:cursor-pointer underline decoration-2 underline-offset-4 decoration-emerald-400 hover:decoration-emerald-500 transition duration-150 ease-in-out decoration-emerald-300">Download</a>.
+                <div class="grow leading-6 h-full">The uploaded file was successfully converted. <a
+                        href="/{{ .ConvertedFile }}"
+                        class="hover:cursor-pointer underline decoration-2 underline-offset-4 decoration-emerald-400 hover:decoration-emerald-500 transition duration-150 ease-in-out decoration-emerald-300">Download
+                        the converted file</a>.
                 </div>
             </div>
+            {{ end }}
+
+            {{ if not (eq .Error nil) }}
             <div id="error-message"
-                class="hidden border-2 border-red-300 pr-3 pl-5 py-4 rounded-md bg-red-100 text-red-600 align-bottom flex flew-rows-1 align-baseline sm:mb-4">
+                class="border-2 border-red-300 pr-3 pl-5 py-4 rounded-md bg-red-100 text-red-600 align-bottom flex flew-rows-1 align-baseline sm:mb-4">
                 <img src="/static/img/icons/icon-thumbs-down.svg" class="w-6 mr-3 shrink">
                 <div class="grow leading-6 h-full">
                     <div class="text-lg font-bold text-red-800">Oh no!</div>
-                    The uploaded file was either not an audio file, too large, empty, or not
-                    in an allowed format.
+                    {{ .Error.Error }}
                 </div>
             </div>
+            {{ end }}
+
             <div class="flex flex-col lg:flex-row xl:flex-col lg:gap-4">
                 <div
                     class="flex justify-center rounded-lg border-2 border-dashed border-slate-300 hover:border-purple-300 hover:bg-purple-50 px-6 py-10 items-center">
@@ -68,7 +74,8 @@
                     <div class="grid md:grid-cols-2 gap-2 place-items-start" id="convert-to-choices">
                         <div
                             class="flex flex-cols-2 gap-4 border border-white hover:border-purple-200 hover:bg-purple-50 hover:shadow-md rounded-md p-4 transition duration-150 ease-in-out">
-                            <div><input id="format-mpeg" name="format" type="radio" value="mpeg">
+                            <div><input id="format-mpeg" name="format" type="radio" value="mp3" {{ if eq
+                                    .ConvertToFormat "mp3" }}checked{{end}}>
                             </div>
                             <div><label for="format-mpeg" class="font-semibold hover:cursor-pointer">MPEG <span
                                         class="text-sm font-normal text-slate-400">/ lossy</span>
@@ -80,7 +87,8 @@
                         </div>
                         <div
                             class="flex flex-cols-2 gap-4 border border-white hover:border-purple-200 hover:bg-purple-50 hover:shadow-md rounded-md p-4 transition duration-150 ease-in-out">
-                            <div><input id="format-aac" name="format" type="radio" value="aac"></div>
+                            <div><input id="format-aac" name="format" type="radio" value="aac" {{ if eq
+                                    .ConvertToFormat "aac" }}checked{{end}}></div>
                             <div><label for="format-aac" class="font-semibold hover:cursor-pointer">AAC <span
                                         class="text-sm font-normal text-slate-400">/ lossy</span>
                                     <p id="format-aac-description"
@@ -91,7 +99,8 @@
                         </div>
                         <div
                             class="flex flex-cols-2 gap-4 border border-white hover:border-purple-200 hover:bg-purple-50 hover:shadow-md rounded-md p-4 transition duration-150 ease-in-out">
-                            <div><input id="format-ogg" name="format" type="radio" value="ogg"></div>
+                            <div><input id="format-ogg" name="format" type="radio" value="ogg" {{ if eq
+                                    .ConvertToFormat "ogg" }}checked{{end}}></div>
                             <div><label for="format-ogg" class="font-semibold hover:cursor-pointer">OGG <span
                                         class="text-sm font-normal text-slate-400">/ lossy</span>
                                     <p id="format-ogg-description"
@@ -103,7 +112,8 @@
                         <div
                             class="flex flex-cols-2 gap-4 border border-white hover:border-purple-200 hover:bg-purple-50 hover:shadow-md rounded-md p-4 transition duration-150 ease-in-out checked:border-purple-200 checked:bg-purple-50">
                             <div>
-                                <input id="format-wav" name="format" type="radio" value="wav">
+                                <input id="format-wav" name="format" type="radio" value="wav" {{ if eq
+                                    .ConvertToFormat "wav" }}checked{{end}}>
                             </div>
                             <div><label for="format-wav" class="font-semibold hover:cursor-pointer">WAV <span
                                         class="text-sm font-normal text-slate-400">/ lossless</span>
