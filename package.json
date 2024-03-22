@@ -1,0 +1,22 @@
+{
+  "name": "small-go-url-shortener",
+  "version": "1.0.0",
+  "author": {
+    "name": "Matthew Setter",
+    "email": "matthew@matthewsetter.com",
+    "url": "https://matthewsetter.com"
+  },
+  "keywords": [
+    "go",
+    "url shortener"
+  ],
+  "license": "GPL-3.0-only",
+  "funding": {
+    "type": "individual",
+    "url": "https://www.buymeacoffee.com/settermjd"
+  },
+  "homepage": "https://github.com/settermjd/small-go-url-shortener#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
