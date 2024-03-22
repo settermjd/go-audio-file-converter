@@ -1,5 +1,7 @@
 # Go Audio File Converter
 
+![Screenshot of the app's default route](/docs/img/audio-file-converter.png)
+
 This is a small web app built with Go (mainly using Go's standard library) that can convert audio files from one audio format to another.
 The list of supported codecs is limited to [AAC][aac-url], [MPEG][mpeg-url], [OGG][ogg-url], and [WAV][wav-url], for no other reason than because this is only intended to be a small application, rather than a going concern. 
 However, if you'd like to expand on that list, feel free to do so.
