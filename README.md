@@ -32,3 +32,7 @@ go mod tidy
 [mpeg-url]: https://en.wikipedia.org/wiki/MP3
 [ogg-url]: https://en.wikipedia.org/wiki/Ogg
 [wav-url]: https://en.wikipedia.org/wiki/WAV
+
+## Credits
+
+The sample OGG file in in _docs/audio_ was downloaded from https://file-examples.com/storage/fe7c2cbe4b65fa8179825d1/2017/11/file_example_OOG_1MG.ogg.
